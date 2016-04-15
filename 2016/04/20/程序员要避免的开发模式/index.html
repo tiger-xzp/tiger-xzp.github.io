@@ -7,34 +7,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   <meta name="keywords" content="">
-  <meta name="description" content="转自程序人生
-
-做软件开发十数年，见识了形形色色的开发者，和各种各样的奇葩软件开发模式。本文跟你侃侃这些软件开发模式及其特点。
-IDD（IDE-Driven Development）
-大巧在所不为，大智在所不虑。– 荀子 天论
-
-IDD，也就是 IDE 驱动开发，几乎是初学者步入软件开发殿堂的必经之路。IDE 为开发者屏蔽了很多细节，并且几乎不用配置（相对于 vim / emacs / subl">
+  <meta name="description" content="下文的作者是个技术大牛，好不避讳的说其对编程的认知已高出我等一大截。文中的分类方法不见得多么标准，却的确能精确刻画出形形色色的各种程序猿。 
+个人读完之后，也是感慨良深。其中很多开发模式错误自己也曾犯过，比如BDD+PDD，在之前的公司负责产品维护时，确实像文中所述添加大量的printf到怀疑逻辑中，犹如大海中捞针，渐渐迷失在愈来愈窄的视野以及技术细节中；曾几何时，也为了只求解决问题，而忽略系统整">
 <meta property="og:type" content="article">
 <meta property="og:title" content="程序员要避免的开发模式">
 <meta property="og:url" content="http://yoursite.com/2016/04/20/程序员要避免的开发模式/index.html">
 <meta property="og:site_name" content="好记性不如烂笔头">
-<meta property="og:description" content="转自程序人生
-
-做软件开发十数年，见识了形形色色的开发者，和各种各样的奇葩软件开发模式。本文跟你侃侃这些软件开发模式及其特点。
-IDD（IDE-Driven Development）
-大巧在所不为，大智在所不虑。– 荀子 天论
-
-IDD，也就是 IDE 驱动开发，几乎是初学者步入软件开发殿堂的必经之路。IDE 为开发者屏蔽了很多细节，并且几乎不用配置（相对于 vim / emacs / subl">
-<meta property="og:updated_time" content="2016-04-20T10:19:31.000Z">
+<meta property="og:description" content="下文的作者是个技术大牛，好不避讳的说其对编程的认知已高出我等一大截。文中的分类方法不见得多么标准，却的确能精确刻画出形形色色的各种程序猿。 
+个人读完之后，也是感慨良深。其中很多开发模式错误自己也曾犯过，比如BDD+PDD，在之前的公司负责产品维护时，确实像文中所述添加大量的printf到怀疑逻辑中，犹如大海中捞针，渐渐迷失在愈来愈窄的视野以及技术细节中；曾几何时，也为了只求解决问题，而忽略系统整">
+<meta property="og:updated_time" content="2016-04-20T10:38:22.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="程序员要避免的开发模式">
-<meta name="twitter:description" content="转自程序人生
-
-做软件开发十数年，见识了形形色色的开发者，和各种各样的奇葩软件开发模式。本文跟你侃侃这些软件开发模式及其特点。
-IDD（IDE-Driven Development）
-大巧在所不为，大智在所不虑。– 荀子 天论
-
-IDD，也就是 IDE 驱动开发，几乎是初学者步入软件开发殿堂的必经之路。IDE 为开发者屏蔽了很多细节，并且几乎不用配置（相对于 vim / emacs / subl">
+<meta name="twitter:description" content="下文的作者是个技术大牛，好不避讳的说其对编程的认知已高出我等一大截。文中的分类方法不见得多么标准，却的确能精确刻画出形形色色的各种程序猿。 
+个人读完之后，也是感慨良深。其中很多开发模式错误自己也曾犯过，比如BDD+PDD，在之前的公司负责产品维护时，确实像文中所述添加大量的printf到怀疑逻辑中，犹如大海中捞针，渐渐迷失在愈来愈窄的视野以及技术细节中；曾几何时，也为了只求解决问题，而忽略系统整">
   
     <link rel="alternative" href="/atom.xml" title="好记性不如烂笔头" type="application/atom+xml">
   
@@ -197,8 +182,11 @@ IDD，也就是 IDE 驱动开发，几乎是初学者步入软件开发殿堂的
 
         <div class="post-main">
 
-            <div class="post-content" id="post-content" itemprop="postContent"><blockquote>
-<p><strong>转自程序人生</strong></p>
+            <div class="post-content" id="post-content" itemprop="postContent"><p>下文的作者是个技术大牛，好不避讳的说其对编程的认知已高出我等一大截。文中的分类方法不见得多么标准，却的确能精确刻画出形形色色的各种程序猿。 </p>
+<p>个人读完之后，也是感慨良深。其中很多开发模式错误自己也曾犯过，比如BDD+PDD，在之前的公司负责产品维护时，确实像文中所述添加大量的printf到怀疑逻辑中，犹如大海中捞针，渐渐迷失在愈来愈窄的视野以及技术细节中；曾几何时，也为了只求解决问题，而忽略系统整体性，做各种函数级别的代码防护；这些错误对个人的技术成长及系统认知都产生了不小的阻碍。  </p>
+<p>希望下面的文章能对大家有所启迪，更快地跳过障碍，茁壮成长。</p>
+<blockquote>
+<p><strong>以下转自程序人生</strong></p>
 </blockquote>
 <p>做软件开发十数年，见识了形形色色的开发者，和各种各样的奇葩软件开发模式。本文跟你侃侃这些软件开发模式及其特点。</p>
 <h2 id="IDD（IDE-Driven-Development）"><a href="#IDD（IDE-Driven-Development）" class="headerlink" title="IDD（IDE-Driven Development）"></a>IDD（IDE-Driven Development）</h2><blockquote>
@@ -219,12 +207,12 @@ IDD，也就是 IDE 驱动开发，几乎是初学者步入软件开发殿堂的
 </blockquote>
 <p>DDD，面向调试器开发，是 IDD 依赖到一定程度的必然反应。这种开发模式的典型表现为：写出来的代码不知道对不对，从头到尾设置无数个断点，然后进入到调试模式，一个断点一个断点跟踪。发现一个问题，解决一个问题（也许引入一个新的问题），直到所有断点走数遍，所有遇到的问题被消灭，抹一抹头上的汗，心里骂上一句：妈的，这段代码老子（娘）终于调通了！</p>
 <p>DDD 是非常浪费程序员生命的一种开发方式，它让我们把有限的时间精力都浪费在无穷地瞎忙活之中。因为断点过于唾手可得，程序员会变得懒于思考，懒于设计，甚至写完了代码都懒得自己看一眼 —— 大手一挥，无数个红色的断点就设置好了，反正出了问题我调就行了呗。</p>
-<p>其实很多 concurrent 的问题，靠调试器是无法复现和解决的，更要命的是，DDD 还容易使程序员陷入 tunnel vision —— 我们太过于关注眼前的那一点点状态，而忽视了全局。  </p>
+<p>其实很多 concurrent 的问题，靠调试器是无法复现和解决的，更要命的是，DDD 还容易使程序员陷入 tunnel vision —— 我们太过于关注眼前的那一点点状态，而忽视了全局。</p>
 <ul>
 <li>适用人群：入门者  </li>
 <li>舒适指数：四星  </li>
 <li>危害指数：五星  </li>
-<li>解决之道：多花时间思考和设计，使用 TDD（Test Driven Development），如果非要追踪状态，合理地使用日志（log）而非断点  </li>
+<li>解决之道：多花时间思考和设计，使用 TDD（Test Driven Development），如果非要追踪状态，合理地使用日志（log）而非断点    </li>
 </ul>
 <h2 id="PDD（Print-Driven-Development）"><a href="#PDD（Print-Driven-Development）" class="headerlink" title="PDD（Print-Driven Development）"></a>PDD（Print-Driven Development）</h2><blockquote>
 <p>王好战，请以战喻。填然鼓之，兵刃既接，弃甲曳兵而走。或百步而后止，或五十步而后止。以五十步笑百步，则何如？</p>
