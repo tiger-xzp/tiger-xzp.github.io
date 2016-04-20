@@ -124,6 +124,79 @@
   <ul class="post-list">
   
     <li class="post-list-item">
+  <article id="post-command" class="article article-type-post" itemprop="blogPost">
+    
+      
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2016/04/21/command/">各种日常工作用到的命令</a>
+    </h3>
+  
+
+
+
+      <div class="post-meat flex-row">
+        <div class="flex-col">
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/">shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tshark/">tshark</a></li></ul>
+</div>
+        <time datetime="2016-04-20T16:00:00.000Z" itemprop="datePublished" class="post-tiem">
+  2016-04-21
+</time>
+      </div>
+      <div class="post-content" id="post-content" itemprop="postContent" >
+        
+          <p>下面的仅记录日常工作中经常用到的一些shell命令，希望对大家有所帮助。<br>后面也会时时更新该文档。</p>
+<h2 id="设置http代理"><a href="#设置http代理" class="headerlink" title="设置http代理"></a>设置http代理</h2><blockquote>
+<p>export https_proxy=<a href="https://ip:port" target="_blank" rel="external">https://ip:port</a><br>export http_proxy = <a href="http://ip:port" target="_blank" rel="external">http://ip:port</a></p>
+</blockquote>
+<h2 id="git设置http代理"><a href="#git设置http代理" class="headerlink" title="git设置http代理"></a>git设置http代理</h2><blockquote>
+<p>git config –global http.proxy “127.0.0.1:8087</p>
+</blockquote>
+<h2 id="查看文件集文件大小"><a href="#查看文件集文件大小" class="headerlink" title="查看文件集文件大小"></a>查看文件集文件大小</h2><blockquote>
+<p>du -h dir<br>举个例子：<br>`  du -sh xmldb/<br>    du -sm <em> | sort -n //统计当前目录大小 并安大小 排序<br>    du -sk </em> | sort -n<br>    du -sk <em> | grep guojf //看一个人的大小<br>    du -m | cut -d “/“ -f 2 //看第二个/ 字符前的文字<br>    查看此文件夹有多少文件 /</em>/<em>/</em> 有多少文件<br>    du xmldb/<br>    du xmldb/<em>/</em>/* |wc -l  </p>
+</blockquote>
+<h2 id="centos-安装-tshark"><a href="#centos-安装-tshark" class="headerlink" title="centos 安装 tshark"></a>centos 安装 tshark</h2><blockquote>
+<p>yum whatprovides <em>tshark</em></p>
+</blockquote>
+<h2 id="tshark-使用方法"><a href="#tshark-使用方法" class="headerlink" title="tshark 使用方法"></a>tshark 使用方法</h2><blockquote>
+<p>tshark -r tcp_16.pcap -V  -Y frame.number==7819<br>-r 指定源文件<br>-V 尽可能详细展示包<br>-Y display filter<br>-R display filter<br> tshark -r tcp_16.pcap -V -Y “ip.src==125.39.240.75 &amp;&amp; frame.number==27289”  </p>
+</blockquote>
+<h2 id="设置linux时间"><a href="#设置linux时间" class="headerlink" title="设置linux时间"></a>设置linux时间</h2><blockquote>
+<p>date –set=”20140125 09:17:00”</p>
+</blockquote>
+<h2 id="vim-中全局替换"><a href="#vim-中全局替换" class="headerlink" title="vim 中全局替换"></a>vim 中全局替换</h2><blockquote>
+<p>%s/src/dest/g</p>
+</blockquote>
+<h2 id="pip-使用国内镜像源下载"><a href="#pip-使用国内镜像源下载" class="headerlink" title="pip 使用国内镜像源下载"></a>pip 使用国内镜像源下载</h2><blockquote>
+<p>pip install -i <a href="https://pypi.douban.com/simple" target="_blank" rel="external">https://pypi.douban.com/simple</a> pandas</p>
+</blockquote>
+<h2 id="linux创建用户操作"><a href="#linux创建用户操作" class="headerlink" title="linux创建用户操作"></a>linux创建用户操作</h2><blockquote>
+<p>useradd 用户名 -g 组名–G 组名-d Home 目录名-p 密码<br> userdel 用户名<br>groupadd newgroupch<br>groupdel newgoup<br>passwd 用户名<br>chmod 【who】[+|-|=][mode] 文件名<br> chown 【用户：组】 文件  </p>
+</blockquote>
+<p>举例:<br>修改文件夹sten及子文件夹的组为stenographer</p>
+<blockquote>
+<p>chgrp -R stenographer sten</p>
+</blockquote>
+<p>修改文件夹sten及子文件夹的用户为stenographer</p>
+<blockquote>
+<p>chown -R stenographer sten</p>
+</blockquote>
+
+        
+      </div>
+      <div class="post-footer clearfix">
+        <a href="/2016/04/21/command/" class="post-more waves-button-light">MORE</a>
+      </div>
+    
+
+  </article>
+
+
+</li>
+  
+    <li class="post-list-item">
   <article id="post-maven" class="article article-type-post" itemprop="blogPost">
     
       
