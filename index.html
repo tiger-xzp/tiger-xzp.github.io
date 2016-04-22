@@ -1,153 +1,197 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 <head>
   <meta charset="utf-8">
   
-  <title>好记性不如烂笔头 | 道生一，一生二，二生三，三生万物。</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>好记性不如烂笔头</title>
+  <meta name="author" content="Rocky Xie">
   
-  <meta name="keywords" content="undefined">
   <meta name="description" content="Rocky的技术乐园">
-<meta property="og:type" content="website">
-<meta property="og:title" content="好记性不如烂笔头">
-<meta property="og:url" content="http://yoursite.com/index.html">
-<meta property="og:site_name" content="好记性不如烂笔头">
-<meta property="og:description" content="Rocky的技术乐园">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="好记性不如烂笔头">
-<meta name="twitter:description" content="Rocky的技术乐园">
   
-    <link rel="alternative" href="/atom.xml" title="好记性不如烂笔头" type="application/atom+xml">
   
-  <meta name="summary" content="Rocky的技术乐园">
-  <link rel="shortcut icon" href="/favicon.ico">
-  <link rel="stylesheet" href="/css/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="好记性不如烂笔头"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/themes/yeti.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'null', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?null";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
 </head>
 
-<body>
-  <div id="loading" class="active"></div>
-
-  <nav id="menu"  >
-   <div class="inner">
-  <a href="javascript:;" class="header-icon waves-circle-light" id="menu-off">
-      <i class="icon icon-lg icon-close"></i>
-  </a>
-  <div class="brand-wrap">
-    <div class="brand">
-      <a href="/" class="avatar"><img src="/img/logo.jpg"></a>
-      <hgroup class="introduce">
-        <h5 class="nickname">Rocky Xie</h5>
-        <a href="mailto:undefined" title="nevsaynev56@sina.com" class="mail">nevsaynev56@sina.com</a>
-      </hgroup>
-    </div>
-  </div>
-  <ul class="nav">
-    
-        <li class="waves-block active">
-          <a href="/"  >
-            <i class="icon icon-lg icon-home"></i>
-            主页
-          </a>
-        </li>
-    
-        <li class="waves-block">
-          <a href="/archives"  >
-            <i class="icon icon-lg icon-archives"></i>
-            Archives
-          </a>
-        </li>
-    
-        <li class="waves-block">
-          <a href="/tags"  >
-            <i class="icon icon-lg icon-tags"></i>
-            Tags
-          </a>
-        </li>
-    
-        <li class="waves-block">
-          <a href="https://github.com/tiger-xzp" target="_blank" >
-            <i class="icon icon-lg icon-github"></i>
-            Github
-          </a>
-        </li>
-    
-        <li class="waves-block">
-          <a href="/"  >
-            <i class="icon icon-lg icon-link"></i>
-            友情链接
-          </a>
-        </li>
-    
-        <li class="waves-block">
-          <a href="https://plus.google.com" target="_blank" >
-            <i class="icon icon-lg icon-google_plus"></i>
-            Google Plus
-          </a>
-        </li>
-    
-  </ul>
-
-  <footer class="footer">
-  <p><a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0;vertical-align:middle;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAAllBMVEUAAAD///+rsapERER3d3eIiIjMzMzu7u4iIiKUmZO6v7rKzsoODg4RERFVVVUNDQ0NDg0PEA8zMzNLTEtbXltmZmZydnF9gn2AgICPkI+ZmZmqqqq7u7vFxsXIzMgNDQwZGRkgICAhISEkJSMnKCcuMC4xMzE5Ozk7PTtBQkFCQkJDQ0Nna2eGhoaHh4ezuLLGysbd3d1wVGpAAAAA4UlEQVR42q2T1xqCMAyFk7QsBQeKA9x7j/d/OSm22CpX0nzcpA1/T05aAOuBVkMAScQFHLnEwoCo2f1TnQIGoVMewjZEjVFN4GH1Ue1Cn2jWqwfsOOj6wDwGvotsl/c8lv7KIq1eLOsT0HMFHMIE/RZyHnlphryT9zyV+8WH5e8yQw3wnQvgAFxPTKUVi555SHR/lOfLMgVTeDlSfN+TaoUsiTyeIm+bCkHvCA2FUKG48LDtYBZBknsYP/G8NTw0gaaHyuQf4H5pecrB/FYCT2sL9zAfy1Xyjou6L8X2W7YcLyBZCRtnq/zfAAAAAElFTkSuQmCC" /></a></p>
-  <p>好记性不如烂笔头 &copy; 2016</p>
-  <p>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
-  <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></p>
-  <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-2x icon-rss-square"></i></a>
-</footer>
-
-</div>
-
-  </nav>
-  <main id="main">
-    <header class="header" id="header">
-    <div class="flex-row">
-        <a href="javascript:;" class="header-icon waves-circle-light on" id="menu-toggle">
-          <i class="icon icon-lg icon-navicon"></i>
-        </a>
-        <div class="flex-col header-title ellipsis">好记性不如烂笔头</div>
-        
-        <a href="javascript:;" class="header-icon waves-circle-light" id="menu-share">
-            <i class="icon icon-lg icon-share-alt"></i>
-        </a>
-        
-    </div>
-</header>
-<header class="content-header">
-  <div class="container">
-    <h1 class="author">好记性不如烂笔头</h1>
-    <h5 class="subtitle">道生一，一生二，二生三，三生万物。</h5>
-  </div>
-</header>
-
-    <div class="container body-wrap">
-      
-  <ul class="post-list">
-  
-    <li class="post-list-item">
-  <article id="post-command" class="article article-type-post" itemprop="blogPost">
-    
-      
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2016/04/21/command/">各种日常工作用到的命令</a>
-    </h3>
-  
-
-
-
-      <div class="post-meat flex-row">
-        <div class="flex-col">
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/">shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tshark/">tshark</a></li></ul>
-</div>
-        <time datetime="2016-04-20T16:00:00.000Z" itemprop="datePublished" class="post-tiem">
-  2016-04-21
-</time>
+ <body>  
+  <nav id="main-nav" class="navbar  navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+	<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+       <a class="navbar-brand" href="/">好记性不如烂笔头</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class="fa fa-tags"></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
       </div>
-      <div class="post-content" id="post-content" itemprop="postContent" >
-        
-          <p>下面的仅记录日常工作中经常用到的一些shell命令，希望对大家有所帮助。<br>后面也会时时更新该文档。</p>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 <div class="page-header ">
+  <h1 class="title ">大道至简</h1>
+</div>
+
+<div class="row page">
+
+	
+	<div class="col-md-9">
+	
+
+		<div class="slogan">
+      <i class="fa fa-heart"></i>
+      纯粹的技术顿悟.
+</div>    
+		<div id="top_search"></div>
+		<div class="mypage">
+		
+		<!-- title and entry -->
+		
+			
+	
+	<!-- display as entry -->	
+		<h3 class="title">
+			<div class="date"> 2016-05-04 </div>
+			<div class="article-title"><a href="/2016/05/04/upgrade_kernel/" >centos7 升级内核</a></div>						
+		</h3>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<p>工作需要，编译DPDK时需要依赖内核源文件，安装的CENTOS release版本默认没有相关文件，所以就需要升级下内核。  </p>
+<p>升级内核主要有以下两种方式：  </p>
+<ol>
+<li>使用yum快速升级，但是升级的版本受限于yum源上存放的kernel版本，目前官网主要提供kernel-ml（mainline）和kernel-lt（longtime）两种。  </li>
+<li>从 <a href="http://www.kernel.org" target="_blank" rel="external">http://www.kernel.org</a> 首页去下载特定版本，手动升级。  </li>
+</ol>
+<p>本文中需要特定版本的内核，所以选择方式2，下面我们看看都需要怎么操作：</p>
+<h2 id="确定当前的内核版本"><a href="#确定当前的内核版本" class="headerlink" title="确定当前的内核版本"></a>确定当前的内核版本</h2><p>这一步也没什么必要，但是可以知道究竟后面升级后的版本是否已经替换了当前版本。</p>
+<blockquote>
+<p> $ uname -r<br>3.10.0-327.10.1.el7.x86_64</p>
+</blockquote>
+<h2 id="安装依赖软件"><a href="#安装依赖软件" class="headerlink" title="安装依赖软件"></a>安装依赖软件</h2><p>编译安装新内核，依赖于一些基础的开发环境和开发库：</p>
+<blockquote>
+<p>yum grouplist  //查看已经安装的和未安装的软件包组，来判断我们是否安装了相应的开发环境和开发库；<br>yum groupinstall “Development Tools”  //一般是安装这两个软件包组，这样做会确定你拥有编译时所需的一切工具<br>yum install ncurses-devel //你必须这样才能让 make *config 这个指令正确地执行<br>yum install qt-devel //如果你没有 X 环境，这一条可以不用  </p>
+</blockquote>
+<h2 id="编译内核"><a href="#编译内核" class="headerlink" title="编译内核"></a>编译内核</h2><p>从首页上去下载版本，可以看到有stable, longterm等版本，longterm是比stable更稳定的版本，会长时间更新，本次升级我选择 3.10.101。</p>
+<blockquote>
+<p>[root]wget  -c <a href="https://www.kernel.org/pub/linux/kernel/v3.x/linux-3.10.101.tar.xz" target="_blank" rel="external">https://www.kernel.org/pub/linux/kernel/v3.x/linux-3.10.101.tar.xz</a><br>[root]tar -xf linux-3.10.101.tar.xz -C /usr/src/<br>[root]cd /usr/src/linux-3.10.58/<br>[root]cp /boot/config-3.10.0-123.el7.x86_64 .config //使用之前版本生效的配置，这样就不用再重新全部配置一遍<br>[root]sh -c ‘yes “” | make oldconfig’//make oldconfig会读取当前目录下的.config文件，在.config文件里没有找到的选项则提示用户填写，然后备份.config文件为.config.old，并生成新的.config文件  </p>
+</blockquote>
+<h3 id="开始编译及安装"><a href="#开始编译及安装" class="headerlink" title="开始编译及安装"></a>开始编译及安装</h3><blockquote>
+<p>[root]make -j24 // make其实就相当于make bzImage和make modules的结合, j24表示用24个线程来编译,一般取设备的核数,可通过cat /proc/cpuinfo确认<br>[root]make -j24 modules_install  //安装模块<br>[root] make install //真正的安装新内核  </p>
+</blockquote>
+<h2 id="修改grub引导"><a href="#修改grub引导" class="headerlink" title="修改grub引导"></a>修改grub引导</h2><p>centos7 默认使用grub2,所以这里可以借助grub2提供的工具来自动生成配置文件。</p>
+<blockquote>
+<p>grub2-mkconfig -o /boot/grub2/grub.cfg  </p>
+</blockquote>
+<p>这样的话menu就自动生成了。如果想要修改默认的启动顺序，可以运行grub-set-default和grub-reboot命令来配置默认启动项。</p>
+<p>好了，如果一切顺利的话，执行reboot就会看到grub menu中有新添加的内核，选择后启动（或者默认按顺序选择启动后）就可以看到已使用新内核了：</p>
+<blockquote>
+<p>[root]# uname -r<br>3.10.101  </p>
+</blockquote>
+<p>欢迎大家实际操作，并提出问题讨论。</p>
+
+	
+	</div>
+  <a type="button" href="/2016/05/04/upgrade_kernel/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->	
+		<h3 class="title">
+			<div class="date"> 2016-04-21 </div>
+			<div class="article-title"><a href="/2016/04/21/command/" >各种日常工作用到的命令</a></div>						
+		</h3>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<p>下面的仅记录日常工作中经常用到的一些shell命令，希望对大家有所帮助。<br>后面也会时时更新该文档。</p>
 <h2 id="设置http代理"><a href="#设置http代理" class="headerlink" title="设置http代理"></a>设置http代理</h2><blockquote>
 <p>export https_proxy=<a href="https://ip:port" target="_blank" rel="external">https://ip:port</a><br>export http_proxy = <a href="http://ip:port" target="_blank" rel="external">http://ip:port</a></p>
 </blockquote>
@@ -184,99 +228,27 @@
 <p>chown -R stenographer sten</p>
 </blockquote>
 
-        
-      </div>
-      <div class="post-footer clearfix">
-        <a href="/2016/04/21/command/" class="post-more waves-button-light">MORE</a>
-      </div>
-    
-
-  </article>
-
-
-</li>
-  
-    <li class="post-list-item">
-  <article id="post-maven" class="article article-type-post" itemprop="blogPost">
-    
-      
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2016/04/20/maven/">使用Maven来创建运行JAVA工程</a>
-    </h3>
-  
-
-
-
-      <div class="post-meat flex-row">
-        <div class="flex-col">
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jar/">jar</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/maven/">maven</a></li></ul>
+	
+	</div>
+  <a type="button" href="/2016/04/21/command/#more" class="btn btn-default more">Read More</a>
 </div>
-        <time datetime="2016-04-19T16:00:00.000Z" itemprop="datePublished" class="post-tiem">
-  2016-04-20
-</time>
-      </div>
-      <div class="post-content" id="post-content" itemprop="postContent" >
-        
-          <hr>
-<p>   之前没写过java，没用过eclipse，也没有对应的开发环境，但是项目测试中又必须用到Java API操作数据，这个怎么办？</p>
-<p>  本文主要把我解决此问题的方法以及其中遇到的问题、解决方法和大家做个分享，仅作抛砖引玉之效。<br>引入原因—-由于是大数据作业，要引用hadoop、hbase的库比较多，况且我也不知道要引用及依赖哪些库（原谅我是java小白，从未接触过）。所以能引入类似eclipse工具自动检索依赖库的功能就相当重要了，而maven恰恰能解决我此方面的需求。</p>
-<p>   Maven仓库就是放置所有JAR文件（WAR，ZIP，POM等等）的地方，所有Maven项目可以从同一个Maven仓库中获取自己所需要的依赖 JAR，这节省了磁盘资源。此外，由于Maven仓库中所有的JAR都有其自己的坐标，该坐标告诉Maven它的组ID，构件ID，版本，打包方式等等， 因此Maven项目可以方便的进行依赖版本管理。</p>
-<h2 id="使用maven的步骤"><a href="#使用maven的步骤" class="headerlink" title="使用maven的步骤:"></a>使用maven的步骤:</h2><h3 id="创建工程："><a href="#创建工程：" class="headerlink" title="创建工程："></a>创建工程：</h3><blockquote>
-<p>mvn archetype:generate -DgroupId=com.hbase<br>-DartifactId=hbase<br>-DarchetypeArtifactId=maven-archetype-quickstart<br>-DinteractiveMode=false</p>
-</blockquote>
-<p>  关于各参数的具体意思，可参考Maven的官方文档。  成功后会创建如下目录：</p>
-<blockquote>
-<p>├── pom.xml<br>├── src                           ————–java源代码<br>│   ├── main<br>│   │   └── java<br>│   │       └── com<br>│   │           └── hbase<br>│   │               ├── App.java<br>│   └── test                   —————test源代码<br>│       └── java<br>│           └── com<br>│               └── hbase<br>│                   └── AppTest.java  </p>
-</blockquote>
-<h3 id="修改工程pom-xml"><a href="#修改工程pom-xml" class="headerlink" title="修改工程pom.xml"></a>修改工程pom.xml</h3><p>java代码中依赖的库需要从远程仓库中下载，通过修改pom.xml指定依赖库和仓库地址。</p>
-<p><img src="http://7xt6ao.com1.z0.glb.clouddn.com/16-4-20/30919342.jpg" alt=""></p>
-<p>当然也可以直接修改maven的配置文件setting.xml添加respository url,这样对所有的工程都会生效。</p>
-<h3 id="编译工程-mvn-clean-package"><a href="#编译工程-mvn-clean-package" class="headerlink" title="编译工程  mvn clean package"></a>编译工程  mvn clean package</h3><p><img src="http://7xt6ao.com1.z0.glb.clouddn.com/16-4-20/89384498.jpg" alt=""><br>看到上面的提示就算成功了。这个步骤经常碰到的错误有两种:源代码写得有问题，这个就需要自己解决编译问题了；另一类是库的依赖问题，这种错误主要检查依赖库的版本，resposity的url是否可访问等。</p>
-<h2 id="运行代码："><a href="#运行代码：" class="headerlink" title="运行代码："></a>运行代码：</h2><p>上一步运行成功后，会生成新的目录target及目标文件：<br><img src="http://7xt6ao.com1.z0.glb.clouddn.com/16-4-20/88108370.jpg" alt=""><br>执行java -cp target/hbase-1.0-SNAPSHOT.jar  com.hbase.App语句，如果程序简单只依赖一些基础库话，应该直接就可以成功了。<br>但是如果依赖第三方库的话，上面的命令一般是会失败的，提示缺失一些库，比如：<br><img src="http://7xt6ao.com1.z0.glb.clouddn.com/16-4-20/94105361.jpg" alt=""><br>解决此问题，可以有两种方案：</p>
-<blockquote>
-<p>1、依次把依赖的库找出来，把对应的包写到/etc/profile中的classpath中。<br>2、mvn 提供一个有意思的选项，可以把依赖的包批量找到并拷贝到工程中。执行命令：mvn clean dependency:copy-dependencies package,  个人用的就是这个方案，比较简单。</p>
-</blockquote>
-<p>执行完后，就可以在target目录下看到所有的依赖库：<br><img src="http://7xt6ao.com1.z0.glb.clouddn.com/16-4-20/93198819.jpg" alt=""><br>然后再执行java -cp target/hbase-1.0-SNAPSHOT.jar:’target/dependency/*’  com.hbase.App，指定依赖路径，就大功告成！</p>
-<p>可以欣赏下我的执行结果（在hbase数据库中搜索指定包，输出包的源IP）：<br><img src="http://7xt6ao.com1.z0.glb.clouddn.com/16-4-20/13759884.jpg" alt=""></p>
 
-        
-      </div>
-      <div class="post-footer clearfix">
-        <a href="/2016/04/20/maven/" class="post-more waves-button-light">MORE</a>
-      </div>
-    
-
-  </article>
+		
+			
+	
+	<!-- display as entry -->	
+		<h3 class="title">
+			<div class="date"> 2016-04-20 </div>
+			<div class="article-title"><a href="/2016/04/20/design_pattern/" >程序员要避免的开发模式</a></div>						
+		</h3>
+	
 
 
-</li>
-  
-    <li class="post-list-item">
-  <article id="post-程序员要避免的开发模式" class="article article-type-post" itemprop="blogPost">
-    
-      
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2016/04/20/程序员要避免的开发模式/">程序员要避免的开发模式</a>
-    </h3>
-  
-
-
-
-      <div class="post-meat flex-row">
-        <div class="flex-col"></div>
-        <time datetime="2016-04-19T16:00:00.000Z" itemprop="datePublished" class="post-tiem">
-  2016-04-20
-</time>
-      </div>
-      <div class="post-content" id="post-content" itemprop="postContent" >
-        
-          <p>下文的作者是个技术大牛，好不避讳的说其对编程的认知已高出我等一大截。文中的分类方法不见得多么标准，却的确能精确刻画出形形色色的各种程序猿。 </p>
+			<div class="entry">
+  <div class="row">
+	
+	
+		<p>下文的作者是个技术大牛，好不避讳的说其对编程的认知已高出我等一大截。文中的分类方法不见得多么标准，却的确能精确刻画出形形色色的各种程序猿。 </p>
 <p>个人读完之后，也是感慨良深。其中很多开发模式错误自己也曾犯过，比如BDD+PDD，在之前的公司负责产品维护时，确实像文中所述添加大量的printf到怀疑逻辑中，犹如大海中捞针，渐渐迷失在愈来愈窄的视野以及技术细节中；曾几何时，也为了只求解决问题，而忽略系统整体性，做各种函数级别的代码防护；这些错误对个人的技术成长及系统认知都产生了不小的阻碍。  </p>
 <p>希望下面的文章能对大家有所启迪，更快地跳过障碍，茁壮成长。</p>
 <blockquote>
@@ -345,83 +317,213 @@
 </ul>
 <p>以上写了这么多，总有一款符合你。你有没有找到自己心仪的开发模式？如果没有，恭喜你；如果找到了，别慌，有则改之，无则加勉即可。</p>
 
-        
-      </div>
-      <div class="post-footer clearfix">
-        <a href="/2016/04/20/程序员要避免的开发模式/" class="post-more waves-button-light">MORE</a>
-      </div>
+	
+	</div>
+  <a type="button" href="/2016/04/20/design_pattern/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->	
+		<h3 class="title">
+			<div class="date"> 2016-04-20 </div>
+			<div class="article-title"><a href="/2016/04/20/maven/" >使用Maven来创建运行JAVA工程</a></div>						
+		</h3>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<hr>
+<p>   之前没写过java，没用过eclipse，也没有对应的开发环境，但是项目测试中又必须用到Java API操作数据，这个怎么办？</p>
+<p>  本文主要把我解决此问题的方法以及其中遇到的问题、解决方法和大家做个分享，仅作抛砖引玉之效。<br>引入原因—-由于是大数据作业，要引用hadoop、hbase的库比较多，况且我也不知道要引用及依赖哪些库（原谅我是java小白，从未接触过）。所以能引入类似eclipse工具自动检索依赖库的功能就相当重要了，而maven恰恰能解决我此方面的需求。</p>
+<p>   Maven仓库就是放置所有JAR文件（WAR，ZIP，POM等等）的地方，所有Maven项目可以从同一个Maven仓库中获取自己所需要的依赖 JAR，这节省了磁盘资源。此外，由于Maven仓库中所有的JAR都有其自己的坐标，该坐标告诉Maven它的组ID，构件ID，版本，打包方式等等， 因此Maven项目可以方便的进行依赖版本管理。</p>
+<h2 id="使用maven的步骤"><a href="#使用maven的步骤" class="headerlink" title="使用maven的步骤:"></a>使用maven的步骤:</h2><h3 id="创建工程："><a href="#创建工程：" class="headerlink" title="创建工程："></a>创建工程：</h3><blockquote>
+<p>mvn archetype:generate -DgroupId=com.hbase<br>-DartifactId=hbase<br>-DarchetypeArtifactId=maven-archetype-quickstart<br>-DinteractiveMode=false</p>
+</blockquote>
+<p>  关于各参数的具体意思，可参考Maven的官方文档。  成功后会创建如下目录：</p>
+<blockquote>
+<p>├── pom.xml<br>├── src                           ————–java源代码<br>│   ├── main<br>│   │   └── java<br>│   │       └── com<br>│   │           └── hbase<br>│   │               ├── App.java<br>│   └── test                   —————test源代码<br>│       └── java<br>│           └── com<br>│               └── hbase<br>│                   └── AppTest.java  </p>
+</blockquote>
+<h3 id="修改工程pom-xml"><a href="#修改工程pom-xml" class="headerlink" title="修改工程pom.xml"></a>修改工程pom.xml</h3><p>java代码中依赖的库需要从远程仓库中下载，通过修改pom.xml指定依赖库和仓库地址。</p>
+<p><img src="http://7xt6ao.com1.z0.glb.clouddn.com/16-4-20/30919342.jpg" alt=""></p>
+<p>当然也可以直接修改maven的配置文件setting.xml添加respository url,这样对所有的工程都会生效。</p>
+<h3 id="编译工程-mvn-clean-package"><a href="#编译工程-mvn-clean-package" class="headerlink" title="编译工程  mvn clean package"></a>编译工程  mvn clean package</h3><p><img src="http://7xt6ao.com1.z0.glb.clouddn.com/16-4-20/89384498.jpg" alt=""><br>看到上面的提示就算成功了。这个步骤经常碰到的错误有两种:源代码写得有问题，这个就需要自己解决编译问题了；另一类是库的依赖问题，这种错误主要检查依赖库的版本，resposity的url是否可访问等。</p>
+<h2 id="运行代码："><a href="#运行代码：" class="headerlink" title="运行代码："></a>运行代码：</h2><p>上一步运行成功后，会生成新的目录target及目标文件：<br><img src="http://7xt6ao.com1.z0.glb.clouddn.com/16-4-20/88108370.jpg" alt=""><br>执行java -cp target/hbase-1.0-SNAPSHOT.jar  com.hbase.App语句，如果程序简单只依赖一些基础库话，应该直接就可以成功了。<br>但是如果依赖第三方库的话，上面的命令一般是会失败的，提示缺失一些库，比如：<br><img src="http://7xt6ao.com1.z0.glb.clouddn.com/16-4-20/94105361.jpg" alt=""><br>解决此问题，可以有两种方案：</p>
+<blockquote>
+<p>1、依次把依赖的库找出来，把对应的包写到/etc/profile中的classpath中。<br>2、mvn 提供一个有意思的选项，可以把依赖的包批量找到并拷贝到工程中。执行命令：mvn clean dependency:copy-dependencies package,  个人用的就是这个方案，比较简单。</p>
+</blockquote>
+<p>执行完后，就可以在target目录下看到所有的依赖库：<br><img src="http://7xt6ao.com1.z0.glb.clouddn.com/16-4-20/93198819.jpg" alt=""><br>然后再执行java -cp target/hbase-1.0-SNAPSHOT.jar:’target/dependency/*’  com.hbase.App，指定依赖路径，就大功告成！</p>
+<p>可以欣赏下我的执行结果（在hbase数据库中搜索指定包，输出包的源IP）：<br><img src="http://7xt6ao.com1.z0.glb.clouddn.com/16-4-20/13759884.jpg" alt=""></p>
+
+	
+	</div>
+  <a type="button" href="/2016/04/20/maven/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+
+		</div>
+
+		<!-- pagination -->
+		<div>
+  		<center>
+		<div class="pagination">
+<ul class="pagination">
+	 
+</ul>
+</div>
+
+  		</center>
+		</div>
+
+		
+		
+	</div> <!-- col-md-9 -->
+
+	
+		<div class="col-md-3">
+	<div id="sidebar">
+	
+			
+  <div id="site_search">
+   <div class="form-group">
+    <input type="text" id="local-search-input" name="q" results="0" placeholder="Search" class="st-search-input st-default-search-input form-control"/>
+   </div>  
+  <div id="local-search-result"></div>
+  </div>
+
+
+		
+			
+	<div class="widget">
+		<h4>Categories</h4>
+		<ul class="tag_box inline list-unstyled">
+		
+			<li><a href="/categories/linux/">linux<span>1</span></a></li>
+		
+		</ul>
+	</div>
+
+		
+			
+	<div class="widget">
+		<h4>Tag Cloud</h4>
+		<ul class="tag_box inline list-unstyled">		
+		
+			<li><a href="/tags/maven/">maven<span>1</span></a></li>
+		
+			<li><a href="/tags/shell/">shell<span>1</span></a></li>
+		
+			<li><a href="/tags/kernel/">kernel<span>1</span></a></li>
+		
+			<li><a href="/tags/centos/">centos<span>1</span></a></li>
+		
+			<li><a href="/tags/jar/">jar<span>1</span></a></li>
+		
+			<li><a href="/tags/java/">java<span>1</span></a></li>
+		
+			<li><a href="/tags/tshark/">tshark<span>1</span></a></li>
+		
+		 
+		</ul>
+	</div>
+
+
+		
+			
+<div class="widget">
+  <h4>Recent Posts</h4>
+  <ul class="entry list-unstyled">
     
-
-  </article>
-
-
-</li>
-  
+      <li>
+        <a href="/2016/05/04/upgrade_kernel/" ><i class="fa fa-file-o"></i>centos7 升级内核</a>
+      </li>
+    
+      <li>
+        <a href="/2016/04/21/command/" ><i class="fa fa-file-o"></i>各种日常工作用到的命令</a>
+      </li>
+    
+      <li>
+        <a href="/2016/04/20/design_pattern/" ><i class="fa fa-file-o"></i>程序员要避免的开发模式</a>
+      </li>
+    
+      <li>
+        <a href="/2016/04/20/maven/" ><i class="fa fa-file-o"></i>使用Maven来创建运行JAVA工程</a>
+      </li>
+    
   </ul>
+</div>
+
+		
+			
+<div class="widget">
+	<h4>Links</h4>
+	<ul class="blogroll list-unstyled">
+	
+		<li><i class="fa fa-github"></i><a href="https://github.com/tiger-xzp" title="Tiger-xzp's Github repository." target="_blank"]);">Tiger-xzp</a></li>
+	
+		<li><i class="fa fa-github"></i><a href="http://www.github.com/wzpan" title="My Github account." target="_blank"]);">My Github</a></li>
+	
+		<li><i class="fa fa-linkedin"></i><a href="http://www.linkedin.com/in/hahack" title="My Linkin account." target="_blank"]);">My LinkedIn</a></li>
+	
+	</ul>
+</div>
+
+
+		
+	</div> <!-- sidebar -->
+</div> <!-- col-md-3 -->
+
+	
+	
+</div> <!-- row-fluid -->
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2016 Rocky Xie
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
   
 
 
-    </div>
-  </main>
-<div class="mask" id="mask"></div>
-<a href="javascript:;" id="gotop" class="waves-circle-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+  
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
 
-<script>
-var BLOG_SHARE = {
-    title: "好记性不如烂笔头",
-    pic: "/img/logo.jpg",
-    summary: document.getElementsByName('summary')[0].content,
-    url: "http://yoursite.com/index.html"
-};
-</script>
-<div class="global-share" id="global-share">
-    <div class="tit">分享到：</div>
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
-          豆
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-
-<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
-
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
 <script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
 
 
 
-
-
-
-
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
 
 </body>
-</html>
+   </html>
