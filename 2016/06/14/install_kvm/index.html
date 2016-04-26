@@ -1,0 +1,386 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>kvm安装及克隆 | 好记性不如烂笔头</title>
+  <meta name="author" content="Rocky Xie">
+  
+  <meta name="description" content="Rocky的技术乐园">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="kvm安装及克隆"/>
+  <meta property="og:site_name" content="好记性不如烂笔头"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/themes/yeti.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'null', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?null";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar  navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+	<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+       <a class="navbar-brand" href="/">好记性不如烂笔头</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class="fa fa-tags"></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header ">		
+			<h1 class="title "> kvm安装及克隆</h1>
+		</div>		
+	
+
+
+
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <p>前段时间在本地vmware环境中安装kvm，打算测试kvm的IO性能，安装kvm过程中还是遇到不少问题，本文在此做下记录，以便给他人提供便利。</p>
+<h2 id="环境："><a href="#环境：" class="headerlink" title="环境："></a>环境：</h2><blockquote>
+<p>[root@bogon network-scripts]# uname -a<br>Linux bogon 3.10.0-327.18.2.el7.x86_64 #1 SMP Thu May 12 11:03:55 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux<br>[root@bogon]#rpm -q centos-release<br>centos-release-7-2.1511.el7.centos.2.10.x86_64</p>
+</blockquote>
+<h2 id="前置条件："><a href="#前置条件：" class="headerlink" title="前置条件："></a>前置条件：</h2><ul>
+<li>确认硬件的虚拟属性是否打开<br>支持的情况：&gt; [root@bogon ~]# dmesg | grep kvm&gt; [ 3707.357987] kvm: zapping shadow pages for mmio generation wraparound<blockquote>
+<p>[ 3716.951304] kvm [4081]: vcpu0 unhandled rdmsr: 0x1ad</p>
+</blockquote>
+</li>
+</ul>
+<p>不支持的情况：</p>
+<blockquote>
+<p>（1）[ 4790.548000] kvm: disabled by bios<br>or cpu不支持：<br>   （2）kvm: no hardware support<br>如果出现情况（1），重启进bios开启virtualization选项</p>
+</blockquote>
+<p>还可以使用grep vmx /proc/cpuinfo 查看CPU对虚拟技术的支持,对于vmware虚拟机而言，cpu要支持vmx，需要开启下面选项：<br><img src="http://7xt6ao.com1.z0.glb.clouddn.com/kvm1.png" alt=""></p>
+<ul>
+<li><p>安装相关服务</p>
+<blockquote>
+<p>yum install kvm libvirt python-virtinst qemu-kvm virt-viewer bridge-utils virt-manager libvirt-python virt-install<br>service libvirtd start</p>
+</blockquote>
+</li>
+<li><p>校验kvm模块是否已加载</p>
+<blockquote>
+<p>[root@bogon network-scripts]# lsmod | grep kvm<br>kvm_intel             162153  10kvm                   525409  1 kvm_intel</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="开始安装"><a href="#开始安装" class="headerlink" title="开始安装"></a>开始安装</h2><ul>
+<li>建立网桥，并添加对应的口：<br>在/etc/sysconfig/network-scripts目录下增加ifcfg-br0：&gt; DEVICE=br0<blockquote>
+<p>TYPE=Bridge<br>BOOTPROTO=static<br>DEFROUTE=yes<br>PEERDNS=yes<br>PEERROUTES=yes<br>IPADDR=10.24.67.95<br>NETMASK=255.255.0.0<br>GATEWAY=10.24.255.254<br>DNS1=192.168.1.1<br>NAME=br0<br>UUID=69cf4ec9-6f6e-4bfe-9777-f85f77376a79<br>ONBOOT=yes</p>
+</blockquote>
+</li>
+</ul>
+<p>同时把物理口的IP去掉.</p>
+<p>完成配置后，重启网络服务：</p>
+<blockquote>
+<p>service network resart</p>
+</blockquote>
+<p>将物理口添加到br口中：</p>
+<blockquote>
+<p>brctl addif  br0 eno16777736</p>
+</blockquote>
+<p>完成后应该是这样的：</p>
+<blockquote>
+<p>[root@bogon ~]# brctl show<br>bridge name    bridge id        STP enabled      interfaces<br>br0        8000.000c294acdab    no        eno16777736<br>                                          vnet0<br>virbr0        8000.000000000000    yes     </p>
+<p>[root@bogon ~]# ifconfig<br>br0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500<br>        inet 10.24.67.95  netmask 255.255.0.0  broadcast 10.24.255.255—-ip添加到了br0口<br>        inet6 fe80::20c:29ff:fe4a:cdab  prefixlen 64  scopeid 0x20&lt;link&gt;<br>        ether 00:0c:29:4a:cd:ab  txqueuelen 0  (Ethernet)<br>        RX packets 63503  bytes 7695341 (7.3 MiB)<br>        RX errors 0  dropped 0  overruns 0  frame 0<br>        TX packets 7474  bytes 11605872 (11.0 MiB)<br>        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</p>
+<p>eno16777736:—没有IP了   flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500<br>        ether 00:0c:29:4a:cd:ab  txqueuelen 1000  (Ethernet)<br>        RX packets 619209  bytes 736728595 (702.5 MiB)<br>        RX errors 0  dropped 511  overruns 0  frame 0<br>        TX packets 154646  bytes 31473841 (30.0 MiB)<br>        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</p>
+</blockquote>
+<ul>
+<li><p>建立虚拟机<br>划分硬盘：</p>
+<blockquote>
+<p>qemu-img create -f qcow2 -o preallocation=metadata /home/kvm/guest.qcow2 100G</p>
+</blockquote>
+</li>
+</ul>
+<p>安装kvm bridge网络模式（在宿主机上启动服务，远程使用VNC工具连接配置）：</p>
+<pre><code>&gt; virt-install --name=test--ram 4096 --vcpus=8 -f /home/kvm/spark-1.qcow2--cdrom /home/kvm/CentOS-7.0-1406-x86_64-Minimal.iso --graphics vnc,listen=0.0.0.0,port=5920, --network bridge=br0
+</code></pre><p>如果提示下面的错误：</p>
+<pre><code>&gt; starting install...
+</code></pre><blockquote>
+<p>ERROR    Cannot access storage file ‘/root/work/kvm/data/guest.qcow2’ (as uid:107, gid:107): Permission denied<br>Domain installation does not appear to have been successful.</p>
+</blockquote>
+<p>可修改/etc/libvirt/qemu.conf,然后重启libvirtd服务:</p>
+<pre><code>&gt; user = &quot;root&quot;
+</code></pre><blockquote>
+<p>group = “root”</p>
+</blockquote>
+<p>此时在客户端使用vncviewer.exe即可连上做相关安装配置：<br><img src="http://7xt6ao.com1.z0.glb.clouddn.com/kvm2.png" alt=""></p>
+<pre><code>如果连接不上，一般是防火墙的配置问题。
+</code></pre><h2 id="启动domain"><a href="#启动domain" class="headerlink" title="启动domain"></a>启动domain</h2><p>使用virsh list –all查看已安装的kvm<br>使用virsh start test启动虚拟机<br>使用virsh destory test 关闭虚拟机<br>使用vrish undefine test 删除虚拟机  </p>
+<p>KVM的配置文件存储在/etc/libvirt/qemu/*<br>使用virsh define test.xml使配置生效</p>
+<h2 id="kvm克隆"><a href="#kvm克隆" class="headerlink" title="kvm克隆"></a>kvm克隆</h2><p>假定已存在spark1，新克隆spark-4：<br>需要指定存放spark-4的硬盘名称及位置</p>
+<blockquote>
+<p>virt-clone -o spark-1 -n spark-4 -f /home/kvm/spark-4.qcow2</p>
+</blockquote>
+<p> 修改配置文件：  </p>
+<blockquote>
+<p>virsh edit spark-4 (不要使用vi spark-4.xml,不能立即生效)<br>[root@bogon kvm]# cat /etc/libvirt/qemu/spark-4.xml | grep vnc<br>    &lt;graphics type=’vnc’ port=’5928’ autoport=’no’ listen=’0.0.0.0’&gt;<br>[root@bogon kvm]# cat /etc/libvirt/qemu/spark-4.xml | grep spark-4<br>    &lt;source mode=’bind’ path=’/var/lib/libvirt/qemu/channel/target/domain-spark-4/org.qemu.guest_agent.0’/&gt;</p>
+</blockquote>
+<p>开启即可：</p>
+<blockquote>
+<p>virsh  start spark-4</p>
+</blockquote>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>通过上述方式就可以自由创建kvm了，</p>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+<ul class="pagination">
+	 
+		
+          <li class="prev disabled"><a><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+        
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2016/05/04/upgrade_kernel/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+    </center>
+	</div>
+
+    <!-- share -->
+    
+        
+
+        
+    <!-- JiaThis Button BEGIN -->
+    <div class="jiathis_style_24x24">
+        <a class="jiathis_button_weixin"></a>
+        <a class="jiathis_button_tsina"></a>
+        <a class="jiathis_button_twitter"></a>
+        <a class="jiathis_button_fb"></a>
+        <a class="jiathis_button_googleplus"></a>
+        <a class="jiathis_button_linkedin"></a>
+        <a class="jiathis_button_copy"></a>
+        <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+        <a class="jiathis_counter_style"></a>
+    </div>
+    <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+    <!-- JiaThis Button END -->
+    <br>
+
+
+    
+	
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+  
+  	 <div class="ds-thread" data-thread-key="2016/06/14/install_kvm/" data-title="kvm安装及克隆" data-url="http://yoursite.com/2016/06/14/install_kvm/"></div>  
+  
+</section>
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2016-06-14 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/linux/">linux<span>2</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/kvm/">kvm<span>1</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+<script type="text/javascript">
+  var duoshuoQuery = { short_name: 'ysblog' };
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';
+    ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2016 Rocky Xie
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>
