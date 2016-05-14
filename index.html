@@ -128,6 +128,138 @@ var _hmt = _hmt || [];
 	
 	<!-- display as entry -->	
 		<h3 class="title">
+			<div class="date"> 2016-07-11 </div>
+			<div class="article-title"><a href="/2016/07/11/SparkSQL/" >(SPARK系列一)Spark SQL 认识与使用</a></div>						
+		</h3>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<hr>
+<p>   离上一篇文章，时间跨度有些长。一直以来，总不太注意去记录学习内容，导致很多内容想用的时候又发现还得去重复查阅资料，现场回忆使用，很浪费时间和精力。其实很早就决定要把学习到的东西做好归纳记录，无奈自我约束力的缺失总会导致各项计划夭折。这也是特意开通此博客的用意吧，做好记录，定期回看、思考、总结，加深掌握。<br>最近在阅读一些spark和scala相关的书籍，所以先以此为引，来鞭笞自己把这个习惯良性循环起来。<br>本周主要来学习掌握spark sql。</p>
+<h2 id="Spark-SQL的前生今世"><a href="#Spark-SQL的前生今世" class="headerlink" title="Spark SQL的前生今世"></a>Spark SQL的前生今世</h2><p>Spark SQL算是Spark生态系统中比较新的一个组件了，在1.0版本中被正式引入。其前生是大名鼎鼎的Shark，这个组件被开发用来在spark上运行Hive，让我们一起来回顾下Spark SQL的发展史。 </p>
+<ul>
+<li><p>最早Hadoop流行之时，用户如果想要运行SQL查询，需要借助Hive来实现将查询拆解成MapReduce任务，见下面的示意：  </p>
+<blockquote>
+<p>SQL—-&gt;Hive—-&gt;MapReduce—-&gt;HDFS  </p>
+</blockquote>
+</li>
+<li><p>Spark诞生之后，如果要将SQL拆解成Spark任务，急需要借助Shark了，见下面的示意：  </p>
+<blockquote>
+<p>SQL—-&gt;Hive—-&gt;Shark—-&gt;HDFS</p>
+</blockquote>
+</li>
+<li><p>一开始上面的模式工作得还不错，但随着Spark的发展（计算速度的提升），原有的工作方式让开发人员对其运行速度忍无可忍，而且还无法深度优化。于是Spark的开发人员决定还是自己来吧，也就有了本文要介绍的猪脚—SparkSQL，自从SparkSQL诞生以后，上面的工作模式就变成下图示意：</p>
+<blockquote>
+<p>SparkSQL—-&gt;Spark—-&gt;HDFS</p>
+</blockquote>
+</li>
+</ul>
+<p>我们惊奇地发现新的组件把Hive甩开了，但SparkSQL也不能因为自己是新兵蛋子，就把之前的优良传统抛弃掉，之前大量应用的Hive程序还得支持吧，所以SparkSQL在提供SQLContext的基础上，也封装了新的包装器：HiveContext，新活老活一起干，这些大家没意见了吧。  正因为这样，我们才可以很愉快地使用标准的SQL查询语句以及HiveQL语句。调侃归调侃，其实深层次的原因是Hive已经被大家用了这么多年，早已历经多重安全测试以及提供大量丰富的功能，这不是新兵蛋子能比得了的，所以脑袋决定屁股。。。  </p>
+<h2 id="DataFrame"><a href="#DataFrame" class="headerlink" title="DataFrame"></a>DataFrame</h2><p>拉扯完历史，该上点干货了。</p>
+<p>SparkSQL核心的概念就是<b>DataFrame</b>了，官网上给的定义如下：</p>
+<blockquote>
+<p>A DataFrame is a distributed collection of data organized into named columns. DataFrame is equivalent to a database table, but provides much fier level of optimization. DataFrames can be constructed from a wide array of sources such as: structured data files, tables in Hive, external databases, or existing RDDs.</p>
+</blockquote>
+<p>看完定义应该比较清晰了吧，不过和Spark RDD相比，DataFrame又有何不同?   </p>
+<ul>
+<li>RDD其实只是一组对象的集合，外面看就是一个黑盒子，其内部数据结构如何，我并不知道  </li>
+<li>DataFrame拥有一个schema和其关联，就像关系型数据库的表结构，透过schema我们能够清楚其内部结构；或者可以这样理解，DF就是RDD+schema的组合</li>
+</ul>
+<p><br>有了DataFrame我们能做什么呢？可以参考官网相关的操作<a href="http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.sql.DataFrame" target="_blank" rel="external">API</a>，除此之外，我们也可以使用<b>DSL</b>(domain-specific language)来执行关系型操作。</p>
+<h2 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h2><p>举俩个例子，来记录下如何使用。</p>
+<h3 id="依赖case-classes来推断schema"><a href="#依赖case-classes来推断schema" class="headerlink" title="依赖case classes来推断schema"></a>依赖case classes来推断schema</h3><p>对class概念感兴趣的同学，可自行查阅scala资料去了解。scala提供case class来支持类的构造器、属性设置获取、判等以及执行序列化等，再依赖反射机制来推断schema.  </p>
+<h4 id="具体步骤："><a href="#具体步骤：" class="headerlink" title="具体步骤："></a>具体步骤：</h4><p>1、开启Spark shell</p>
+<blockquote>
+<p>$ spark-shell –driver-memory 1G </p>
+</blockquote>
+<p>2、导入隐式转换包  </p>
+<blockquote>
+<p>scala&gt; import sqlContext.implicits._  </p>
+</blockquote>
+<p>3、创建一个person case class  </p>
+<blockquote>
+<p>scala&gt; case class Person(firstname:String,lastname:String,age:Int)<br>defined class Person  </p>
+</blockquote>
+<p>4、创建源数据文件  </p>
+<blockquote>
+<p>将如下内容存入person.txt<br>“Barck,obama,53<br>Geroge,Bush,45<br>Bill,Gates,78<br>Mess,Leon,29 “<br>$ hdfs dfs -put person.txt /currency/person.txt   </p>
+</blockquote>
+<p>5、从hdfs中导入RDD,并将Array[String] RDD 转换成personRDD </p>
+<blockquote>
+<p>scala&gt; val personRdd = sc.textFile(“hdfs://localhost:9000/currency/person.txt”).map(_.split(“,”)).map(x=&gt;Person(x(0),x(1),x(2).toInt))<br>personRdd: org.apache.spark.rdd.RDD[(String, String, Int)] = MapPartitionsRDD[3] at map at <console>:30</console></p>
+</blockquote>
+<p>6、 将personRDD转换成DataFrame </p>
+<blockquote>
+<p>scala&gt; val person = personRdd.toDF<br>person: org.apache.spark.sql.DataFrame = [_1: string, _2: string, _3: int]  </p>
+</blockquote>
+<p>7、 将DF注册成table</p>
+<blockquote>
+<p>scala&gt; person.registerTempTable(“person”) </p>
+</blockquote>
+<p>8、执行SQL query  </p>
+<blockquote>
+<p>scala&gt; val pepole = sql(“select * from person”)<br>pepole: org.apache.spark.sql.DataFrame = [_1: string, _2: string, _3: int]  </p>
+</blockquote>
+<p>9、验证输出  </p>
+<blockquote>
+<p>scala&gt; pepole.collect.foreach(println)<br>[Barck,obama,53]<br>[Geroge,Bush,45]<br>[Bill,Gates,78]<br>[Mess,Leon,29]  </p>
+</blockquote>
+<h3 id="编程指定schema"><a href="#编程指定schema" class="headerlink" title="编程指定schema"></a>编程指定schema</h3><p>上面的case class大多数情况都工作ok，但是有些情况是无法工作的：比如case class最多只能带22个参数；或者提前可能并不知道说schema。 这种情况下，就可以通过编程来指定对象的<b>StructType</b>和 <b>StructField</b>，分别对应table和field概念。</p>
+<h4 id="具体步骤：-1"><a href="#具体步骤：-1" class="headerlink" title="具体步骤："></a>具体步骤：</h4><p>1、开启Spark shell</p>
+<blockquote>
+<p>$ spark-shell –driver-memory 1G </p>
+</blockquote>
+<p>2、导入隐式转换包  </p>
+<blockquote>
+<p>scala&gt; import sqlContext.implicits._  </p>
+</blockquote>
+<p>3、导入Spark SQL datatypes 和 Row对象：</p>
+<blockquote>
+<p>scala&gt; import org.apache.spark.sql.<em><br>scala&gt; import org.apache.spark.sql.types.</em>  </p>
+</blockquote>
+<p>4、创建源数据文件  </p>
+<blockquote>
+<p>将如下内容存入person.txt<br>“Barck,obama,53<br>Geroge,Bush,45<br>Bill,Gates,78<br>Mess,Leon,29 “<br>$ hdfs dfs -put person.txt /currency/person.txt   </p>
+</blockquote>
+<p>5、从hdfs中导入RDD,并将Array[String] RDD 转换成  Row 对象</p>
+<blockquote>
+<p>scala&gt; val rowRdd = sc.textFile(“hdfs://localhost:9000/currency/person.txt”).map(_.split(“,”)).map(x=&gt;Row(x(0),x(1),x(2).toInt))<br>rowRdd: org.apache.spark.rdd.RDD[(String, String, Int)] = MapPartitionsRDD[3] at map at <console>:30</console></p>
+</blockquote>
+<p>6、 创建schema</p>
+<blockquote>
+<p>scala&gt; val schema = StructType(<br> Array(StructField(“first_name”,StringType,true),<br>StructField(“last_name”,StringType,true),<br>StructField(“age”,IntegerType,true)<br>))   </p>
+</blockquote>
+<p>7、 将schema应用到rowRDD中</p>
+<blockquote>
+<p>scala&gt; val personDF = sqlContext.createDataFrame(rowRdd,schema)</p>
+</blockquote>
+<p>8、 将DF注册成table</p>
+<blockquote>
+<p>scala&gt; person.registerTempTable(“person”) </p>
+</blockquote>
+<p>9、执行SQL query  </p>
+<blockquote>
+<p>scala&gt; val pepole = sql(“select * from person”)<br>pepole: org.apache.spark.sql.DataFrame = [_1: string, _2: string, _3: int]  </p>
+</blockquote>
+<p>10、验证输出  </p>
+<blockquote>
+<p>scala&gt; pepole.collect.foreach(println)<br>[Barck,obama,53]<br>[Geroge,Bush,45]<br>[Bill,Gates,78]<br>[Mess,Leon,29]    </p>
+</blockquote>
+
+	
+	</div>
+  <a type="button" href="/2016/07/11/SparkSQL/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->	
+		<h3 class="title">
 			<div class="date"> 2016-06-14 </div>
 			<div class="article-title"><a href="/2016/06/14/install_kvm/" >kvm安装及克隆</a></div>						
 		</h3>
@@ -510,6 +642,8 @@ var _hmt = _hmt || [];
 		
 			<li><a href="/categories/linux/">linux<span>2</span></a></li>
 		
+			<li><a href="/categories/spark/">spark<span>1</span></a></li>
+		
 		</ul>
 	</div>
 
@@ -519,21 +653,25 @@ var _hmt = _hmt || [];
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/maven/">maven<span>1</span></a></li>
-		
-			<li><a href="/tags/java/">java<span>1</span></a></li>
+			<li><a href="/tags/tshark/">tshark<span>1</span></a></li>
 		
 			<li><a href="/tags/kernel/">kernel<span>1</span></a></li>
 		
-			<li><a href="/tags/tshark/">tshark<span>1</span></a></li>
+			<li><a href="/tags/maven/">maven<span>1</span></a></li>
 		
-			<li><a href="/tags/jar/">jar<span>1</span></a></li>
+			<li><a href="/tags/shell/">shell<span>1</span></a></li>
+		
+			<li><a href="/tags/spark/">spark<span>1</span></a></li>
+		
+			<li><a href="/tags/java/">java<span>1</span></a></li>
 		
 			<li><a href="/tags/kvm/">kvm<span>1</span></a></li>
 		
 			<li><a href="/tags/centos/">centos<span>1</span></a></li>
 		
-			<li><a href="/tags/shell/">shell<span>1</span></a></li>
+			<li><a href="/tags/jar/">jar<span>1</span></a></li>
+		
+			<li><a href="/tags/DataFrame/">DataFrame<span>1</span></a></li>
 		
 		 
 		</ul>
@@ -545,6 +683,10 @@ var _hmt = _hmt || [];
 <div class="widget">
   <h4>Recent Posts</h4>
   <ul class="entry list-unstyled">
+    
+      <li>
+        <a href="/2016/07/11/SparkSQL/" ><i class="fa fa-file-o"></i>(SPARK系列一)Spark SQL 认识与使用</a>
+      </li>
     
       <li>
         <a href="/2016/06/14/install_kvm/" ><i class="fa fa-file-o"></i>kvm安装及克隆</a>
@@ -560,10 +702,6 @@ var _hmt = _hmt || [];
     
       <li>
         <a href="/2016/04/20/design_pattern/" ><i class="fa fa-file-o"></i>程序员要避免的开发模式</a>
-      </li>
-    
-      <li>
-        <a href="/2016/04/20/maven/" ><i class="fa fa-file-o"></i>使用Maven来创建运行JAVA工程</a>
       </li>
     
   </ul>
