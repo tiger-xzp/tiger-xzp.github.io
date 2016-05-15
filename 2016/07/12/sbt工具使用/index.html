@@ -1,0 +1,321 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>使用sbt创建scala工程 | 好记性不如烂笔头</title>
+  <meta name="author" content="Rocky Xie">
+  
+  <meta name="description" content="Rocky的技术乐园">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="使用sbt创建scala工程"/>
+  <meta property="og:site_name" content="好记性不如烂笔头"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/themes/yeti.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'null', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?null";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar  navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+	<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+       <a class="navbar-brand" href="/">好记性不如烂笔头</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class="fa fa-tags"></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header ">		
+			<h1 class="title "> 使用sbt创建scala工程</h1>
+		</div>		
+	
+
+
+
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <p>最近在玩scala，本身虽然提供了REPL，玩起来还比较简单，也能快速上手。<br>但是总不能一直在shell下玩吧，写的代码还是要保存记录的，另外对于复杂一点的功能，如打包发布时，还是需要建立工程的，下面简单的列举两种方法可以创建工程。</p>
+<h1 id="创建工程的方法："><a href="#创建工程的方法：" class="headerlink" title="创建工程的方法："></a>创建工程的方法：</h1><h2 id="第一种："><a href="#第一种：" class="headerlink" title="第一种："></a>第一种：</h2><blockquote>
+<p>//创建工程总目录<br>  $ mkdir sbtTest<br>  $ cd sbtTest<br>  //创建工程子目录<br>  $ mkdir -p src/{main,test}/{scala,java,resources} lib project<br>  //写个简单的例子<br>  $ echo “object  HW {<br>   def  main(args: Array[String]):Unit =<br>    println(“hello world!”)<br>  }” &gt;hw.scala<br>  $ mv hw.scala ./main/src/scala<br>  //执行项目<br>  $ sbt run<br>   [info] Running HW<br>hello world!<br>[success] Total time: 5 s, completed May 14, 2016 11:39:39 AM  </p>
+</blockquote>
+<h2 id="第二种："><a href="#第二种：" class="headerlink" title="第二种："></a>第二种：</h2><p>借助插件，一样可以完成上面的手工创建目录的动作。<br>以sbt 0.13+为例，不同的版本设置的路径是不一样的，需要注意。</p>
+<blockquote>
+<p>1、$ cd ~/.sbt/0.13/plugins //没有该目录，则创建<br>  2、创建np.sbt,并添加：addSbtPlugin(“me.lessis” % “np” % “0.2.0”<br>  3、$ cd ~/.sbt/0.13<br>  4、创建np.sbt,并添加：seq(npSettings: _*)<br>  //创建工程总目录<br>  5、$ mkdir sbtPluginTest<br>     $ cd sbtPluginTest<br>  6、$ sbt np //将会自动创建工程子目录  </p>
+</blockquote>
+<p>  当然np这个插件还有更高级的用法，具体可参考该项目的<a href="https://github.com/softprops/np" target="_blank" rel="external">github</a>.</p>
+<h1 id="添加依赖库和自定义任务"><a href="#添加依赖库和自定义任务" class="headerlink" title="添加依赖库和自定义任务"></a>添加依赖库和自定义任务</h1><p>有两种方法可以管理SBT工程的依赖库：</p>
+<ul>
+<li>手工：将.jar文件放到lib目录中，sbt在编译时会自动将.jar文件加入到classpath中，但这种方法需要手动下载依赖的jar包</li>
+<li>自动化：在build.sbt中添加依赖关系：groupID % artifactID % version         比如：  libraryDependencies += “org.eclipse.jetty” % “jetty-server” %<br>“7.3.0v20110203”</li>
+</ul>
+<p>对于添加自定义任务，直接在.sbt中就无法支持了，需要.scala编译文件来定义。创建自定义任务的步骤如下：<br>1、创建TaskKey<br>2、为TaskKey提供value<br>3、放置.scala编译文件到工程中  </p>
+<p>举例如下：</p>
+<blockquote>
+<p>import sbt.<em><br>import Keys.</em><br>object ExampleBuild extends Build {<br> val hello = TaskKey <a href="&quot;hello&quot;," title="Prints &#39;Hello World&#39;">Unit</a><br> val helloTask: Setting[Task[Unit]] = hello := {<br> println(“Hello World”)  }<br> val project = Project (<br> “example”,<br> file (“.”)).settings(helloTask)<br>} </p>
+</blockquote>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+<ul class="pagination">
+	 
+		
+          <li class="prev disabled"><a><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+        
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2016/07/11/SparkSQL/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+    </center>
+	</div>
+
+    <!-- share -->
+    
+        
+
+        
+    <!-- JiaThis Button BEGIN -->
+    <div class="jiathis_style_24x24">
+        <a class="jiathis_button_weixin"></a>
+        <a class="jiathis_button_tsina"></a>
+        <a class="jiathis_button_twitter"></a>
+        <a class="jiathis_button_fb"></a>
+        <a class="jiathis_button_googleplus"></a>
+        <a class="jiathis_button_linkedin"></a>
+        <a class="jiathis_button_copy"></a>
+        <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+        <a class="jiathis_counter_style"></a>
+    </div>
+    <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+    <!-- JiaThis Button END -->
+    <br>
+
+
+    
+	
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+  
+  	 <div class="ds-thread" data-thread-key="2016/07/12/sbt工具使用/" data-title="使用sbt创建scala工程" data-url="http://yoursite.com/2016/07/12/sbt工具使用/"></div>  
+  
+</section>
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2016-07-12 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/scala/">scala<span>1</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/scala/">scala<span>1</span></a></li> <li><a href="/tags/sbt/">sbt<span>1</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+<script type="text/javascript">
+  var duoshuoQuery = { short_name: 'ysblog' };
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';
+    ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2016 Rocky Xie
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>
