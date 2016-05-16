@@ -146,27 +146,29 @@ var _hmt = _hmt || [];
 </ul>
 <p>对于添加自定义任务，直接在.sbt中就无法支持了，需要.scala编译文件来定义。创建自定义任务的步骤如下：<br>1、创建TaskKey<br>2、为TaskKey提供value<br>3、放置.scala编译文件到工程中  </p>
 <p>举例如下：</p>
-<blockquote>
-<p><pre><br>import sbt.<em><br>import Keys.</em><br>object ExampleBuild extends Build {<br> val hello = TaskKey <a href="&quot;hello&quot;," title="Prints &#39;Hello World&#39;">Unit</a><br> val helloTask: Setting[Task[Unit]] = hello := {<br> println(“Hello World”)  }<br> val project = Project (<br> “example”,<br> file (“.”)).settings(helloTask)<br>} </pre></p>
 <pre>
+import sbt._  
+import Keys._  
+object ExampleBuild extends Build {  
+ val hello = TaskKey [Unit]("hello", "Prints 'Hello World'")  
+ val helloTask: Setting[Task[Unit]] = hello := {  
+ println("Hello World")  }  
+ val project = Project (  
+ "example",  
+ file (".")).settings(helloTask)  
+} 
+</pre>
 
 
 
-</pre></blockquote>
 <h1 id="一个例子"><a href="#一个例子" class="headerlink" title="一个例子"></a>一个例子</h1><p>1、创建工程</p>
 <blockquote>
 <p>mkdir LR<br>sbt np</p>
 </blockquote>
-<p>2、编辑build.sbt</p>
-<blockquote>
-<p>echo “</p>
+<p>2、编辑build.sbt<br>echo “</p>
 <p><pre>organization := “ns”<br>name := “LR”<br>version := “0.1-SNAPSHOT”<br>scalaVersion := “2.11.6”<br>libraryDependencies ++= Seq(<br>  “org.apache.spark”%%”spark-core”%”1.6.1”,<br>  “org.apache.spark”%%”spark-mllib”%”1.6.1”<br>  )<br></pre>“&gt;&gt;build.sbt</p>
-</blockquote>
-<p>3、编辑源文件：</p>
-<blockquote>
-<p>echo “  </p>
-<p><pre>object LR extends App{<br>val conf = new SparkConf().setAppName(“LinearRegression”)<br>val sc = new SparkContext(conf)<br>…<br>sc.stop()<br>}<br></pre>&gt;LR.scala </p>
-</blockquote>
+<p>3、编辑源文件：<br>echo “  </p>
+<p><pre>object LR extends App{<br>val conf = new SparkConf().setAppName(“LinearRegression”)<br>val sc = new SparkContext(conf)<br>…<br>sc.stop()<br>}<br></pre> “&gt;&gt;LR.scala </p>
 <p>4、打包</p>
 <blockquote>
 <p>sbt package<br>[info] Packaging /program/scala/LR/target/scala-2.11/lr_2.11-0.1-SNAPSHOT.jar …<br>[info] Done packaging.</p>
